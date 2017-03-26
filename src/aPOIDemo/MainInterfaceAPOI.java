@@ -14,8 +14,8 @@ public class MainInterfaceAPOI {
 		ExcelReaderAPOI reader = new ExcelReaderAPOI();
 		List<GenericDataDetail> listOfData = reader.readDataFromExcelFile(excelFilePath, spreadsheetHasHeaderAtFirstRow);
 
-		//printTheListOfDataToConsole(listOfData);
-		printASpecificDataItemToConsole(listOfData, "Alarm", "Name");
+		printTheListOfDataToConsole(listOfData);
+		//printASpecificDataItemToConsole(listOfData, "Alarm", "Name");
 	}
 
 	/** Prints each stored genericDataDetail item using the toString method directly to the console,
