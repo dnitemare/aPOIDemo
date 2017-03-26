@@ -48,7 +48,10 @@ public class GenericDataDetail {
         			if (!CustomHelperUtils.givenStringIsEmptyOrNull(currentHeader)) {
         				outputAsStringBuffer.append(currentHeader).append(" : ");
         			}
-        			outputAsStringBuffer.append(currentContent).append("\n");
+        			outputAsStringBuffer.append(currentContent);
+        			if (i+1 < contentArrayList.size()) {
+        				outputAsStringBuffer.append("\n");
+        			}
         		}
         	}
         }
