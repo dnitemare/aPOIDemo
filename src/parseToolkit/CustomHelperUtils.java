@@ -1,4 +1,4 @@
-package aPOIDemo;
+package parseToolkit;
 
 public class CustomHelperUtils {
 	public static boolean givenStringIsEmptyOrNull(String givenString) {

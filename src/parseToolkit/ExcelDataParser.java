@@ -1,4 +1,4 @@
-package aPOIDemo;
+package parseToolkit;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -14,9 +14,8 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
-public class ExcelReaderAPOI {
-	protected List<String> headerArrayList = null;
-
+public class ExcelDataParser {
+	
 	private Object getCellValue(Cell cell) {
 		switch (cell.getCellType()) {
 		case Cell.CELL_TYPE_STRING:
@@ -47,10 +46,12 @@ public class ExcelReaderAPOI {
 	    return workbook;
 	}
 
-	public List<GenericDataDetail> readDataFromExcelFile(String excelFilePath, boolean spreadsheetHasHeaderAtFirstRow) throws IOException {
+	public GenericDataContainer readDataFromExcelFile(String excelFilePath, boolean spreadsheetHasHeaderAtFirstRow) throws IOException {
+		List<String> headerArrayList = null;
 		List<GenericDataDetail> listOfGenericData = new ArrayList<>();
 		FileInputStream inputStream = new FileInputStream(new File(excelFilePath));
 		List<String> currentRowCellList = new ArrayList<String>();
+		GenericDataContainer dataAsGenericContainer = new GenericDataContainer();
 
 		Workbook workbook = getWorkbook(inputStream, excelFilePath);
 		Sheet firstSheet = workbook.getSheetAt(0);
@@ -69,13 +70,15 @@ public class ExcelReaderAPOI {
 				headerArrayList = currentRowCellList;
 				continue;
 			}
-			GenericDataDetail dataDetail = new GenericDataDetail(headerArrayList, currentRowCellList);
+			GenericDataDetail dataDetail = new GenericDataDetail(currentRowCellList);
 			listOfGenericData.add(dataDetail);
 		}
 
 		workbook.close();
 		inputStream.close();
 
-		return listOfGenericData;
+		dataAsGenericContainer.setHeaderArrayList(headerArrayList);
+		dataAsGenericContainer.setGenericDataList(listOfGenericData);
+		return dataAsGenericContainer;
 	}
 }
